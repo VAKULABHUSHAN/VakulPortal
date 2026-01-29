@@ -1,0 +1,287 @@
+:root {
+  --bg-dark: #0f172a;
+  --card-bg: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.12);
+
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+
+  --accent: #818cf8;
+  --accent-gradient: linear-gradient(135deg, #6366f1, #a855f7);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--bg-dark);
+  background-image:
+    radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.15), transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(168, 85, 247, 0.15), transparent 40%);
+  display: flex;
+  align-items: flex-start; /* start at top so page can scroll when content grows */
+  justify-content: center;
+  padding: 32px 16px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.container {
+  width: 100%;
+  padding: 20px;
+}
+
+/* MAIN CARD */
+.card {
+  max-width: 400px;
+  margin: auto;
+  padding: 40px 30px;
+  background: var(--card-bg);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-radius: 32px;
+  border: 1px solid var(--glass-border);
+  text-align: center;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  animation: slideIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* AVATAR */
+.avatar {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+  padding: 5px;
+  border: 2px solid var(--accent);
+  transition: transform 0.5s ease;
+}
+
+.avatar:hover {
+  transform: scale(1.05) rotate(5deg);
+}
+
+/* TEXT */
+h1 {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: -0.025em;
+  margin-bottom: 6px;
+}
+
+.bio {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 32px;
+}
+
+/* LINKS */
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.link-btn {
+  position: relative;
+  overflow: hidden;
+  padding: 16px;
+  border-radius: 16px;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-main);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--glass-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Ensure anchors don't get underlined */
+.links a, .links a:link, .links a:visited, .links a:hover, .links a:active, .links a:focus {
+  text-decoration: none !important;
+  outline: none;
+  -webkit-text-decoration-skip-ink: none;
+  text-decoration-skip-ink: none;
+}
+
+/* SHIMMER EFFECT */
+.link-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.05),
+    transparent
+  );
+  transition: 0.5s;
+}
+
+.link-btn:hover::before {
+  left: 100%;
+}
+
+.link-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-3px) scale(1.02);
+  border-color: var(--accent);
+  box-shadow: 0 10px 20px -5px rgba(99, 102, 241, 0.3);
+}
+
+/* ICONS (if any) */
+.link-btn i {
+  font-size: 20px;
+  color: var(--accent);
+  transition: transform 0.3s ease;
+}
+
+.link-btn:hover i {
+  transform: scale(1.2);
+}
+
+/* ANIMATIONS */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.link-btn {
+  animation: fadeIn 0.5s ease backwards;
+}
+
+.link-btn:nth-child(1) { animation-delay: 0.2s; }
+.link-btn:nth-child(2) { animation-delay: 0.3s; }
+.link-btn:nth-child(3) { animation-delay: 0.4s; }
+.link-btn:nth-child(4) { animation-delay: 0.5s; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.link-btn {
+  --x: 50%;
+  --y: 50%;
+}
+
+/* CURSOR GLOW */
+.link-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    120px circle at var(--x) var(--y),
+    rgba(129, 140, 248, 0.35),
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.link-btn:hover::after {
+  opacity: 1;
+}
+
+.link-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+/* ... [KEEP ALL YOUR EXISTING STYLES ABOVE] ... */
+
+/* RESPONSIVE ADDITIONS */
+
+/* 1. Ensure the wrapper container handles padding well on mobile */
+.container {
+  width: 100%;
+  padding: 16px; /* Reduced padding for more space on small screens */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 2. Adjust the card for different screen sizes */
+.card {
+  width: 100%; /* Take full width of parent up to max-width */
+  max-width: 400px;
+  /* Use clamp for responsive padding: min 20px, preferred 5%, max 30px */
+  padding: clamp(30px, 8vw, 40px) clamp(20px, 5vw, 30px);
+  margin: 0 auto;
+}
+
+/* 3. Responsive Typography using clamp() */
+h1 {
+  /* min 22px, preferred scale, max 28px */
+  font-size: clamp(22px, 6vw, 28px);
+}
+
+.bio {
+  font-size: clamp(13px, 4vw, 14px);
+  line-height: 1.5;
+}
+
+/* 4. MEDIA QUERIES for fine-tuning */
+
+/* For Small Mobile Devices (e.g., iPhone SE) */
+@media (max-width: 360px) {
+  .card {
+    padding: 24px 16px;
+    border-radius: 24px; /* Slightly smaller radius for small screens */
+  }
+
+  .avatar {
+    width: 90px;
+    height: 90px;
+  }
+
+  .link-btn {
+    padding: 12px;
+    font-size: 14px;
+    gap: 8px;
+  }
+}
+
+/* For Tablets and Larger */
+@media (min-width: 768px) {
+  .card {
+    /* Subtle hover effect for the whole card on desktop */
+    transition: transform 0.4s ease;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+  }
+}
+
+/* 5. Accessibility & Performance */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Ensure backdrop-filter works or falls back gracefully */
+@supports not (backdrop-filter: blur(24px)) {
+  .card {
+    background: rgba(15, 23, 42, 0.95); /* Solid fallback */
+  }
+}
