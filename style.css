@@ -1,112 +1,135 @@
 :root {
-  --bg-dark: #0f172a;
-  --card-bg: rgba(255, 255, 255, 0.08);
-  --glass-border: rgba(255, 255, 255, 0.12);
+  --bg-dark: #09090b; /* Deeper zinc-950 */
+  --card-bg: rgba(24, 24, 27, 0.4); /* Darker translucent zinc-900 */
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-inner: rgba(255, 255, 255, 0.03);
 
   --text-main: #f8fafc;
-  --text-muted: #94a3b8;
+  --text-muted: #a1a1aa; /* Zinc-400 */
 
   --accent: #818cf8;
-  --accent-gradient: linear-gradient(135deg, #6366f1, #a855f7);
+  --accent-gradient: linear-gradient(135deg, #818cf8, #c084fc);
+  
+  --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+  --shadow-glow: 0 0 40px -10px rgba(129, 140, 248, 0.15);
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 body {
   min-height: 100vh;
   background-color: var(--bg-dark);
-  background-image:
-    radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.15), transparent 40%),
-    radial-gradient(circle at 90% 80%, rgba(168, 85, 247, 0.15), transparent 40%);
+  background-image: 
+    radial-gradient(circle at 15% 20%, rgba(99, 102, 241, 0.12), transparent 45%),
+    radial-gradient(circle at 85% 80%, rgba(168, 85, 247, 0.12), transparent 45%),
+    url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noiseFilter)" opacity="0.04"/></svg>');
+  background-attachment: fixed;
   display: flex;
-  align-items: flex-start; /* start at top so page can scroll when content grows */
+  align-items: flex-start;
   justify-content: center;
   padding: 32px 16px;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  color: var(--text-main);
 }
 
 .container {
   width: 100%;
   padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* MAIN CARD */
 .card {
-  max-width: 400px;
-  margin: auto;
-  padding: 40px 30px;
+  width: 100%;
+  max-width: 420px;
+  padding: clamp(32px, 8vw, 48px) clamp(24px, 5vw, 36px);
   background: var(--card-bg);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border-radius: 32px;
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+  border-radius: 36px;
   border: 1px solid var(--glass-border);
+  box-shadow: inset 0 1px 1px var(--glass-inner), var(--shadow-lg), var(--shadow-glow);
   text-align: center;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-  animation: slideIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: slideIn 1s cubic-bezier(0.16, 1, 0.3, 1) backwards;
 }
 
 /* AVATAR */
 .avatar {
-  width: 110px;
-  height: 110px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
-  margin-bottom: 20px;
-  padding: 5px;
-  border: 2px solid var(--accent);
-  transition: transform 0.5s ease;
+  margin-bottom: 24px;
+  padding: 4px;
+  background: linear-gradient(var(--bg-dark), var(--bg-dark)) padding-box, var(--accent-gradient) border-box;
+  border: 2px solid transparent;
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.6s ease;
+  object-fit: cover;
 }
 
 .avatar:hover {
-  transform: scale(1.05) rotate(5deg);
+  transform: scale(1.08);
+  box-shadow: 0 0 25px -5px rgba(168, 85, 247, 0.5);
 }
 
 /* TEXT */
 h1 {
-  font-size: 28px;
+  font-size: clamp(24px, 6vw, 30px);
   font-weight: 800;
-  color: var(--text-main);
-  letter-spacing: -0.025em;
-  margin-bottom: 6px;
+  letter-spacing: -0.03em;
+  margin-bottom: 8px;
+  background: linear-gradient(180deg, #fff 0%, #a1a1aa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .bio {
-  font-size: 14px;
+  font-size: clamp(14px, 4vw, 15px);
   color: var(--text-muted);
-  margin-bottom: 32px;
+  margin-bottom: 36px;
+  line-height: 1.6;
+  font-weight: 400;
 }
 
 /* LINKS */
 .links {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 16px;
 }
 
 .link-btn {
   position: relative;
   overflow: hidden;
-  padding: 16px;
-  border-radius: 16px;
+  padding: 18px 20px;
+  border-radius: 20px;
   text-decoration: none;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
   color: var(--text-main);
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--glass-border);
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 12px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  justify-content: space-between;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) backwards;
 }
 
-/* Ensure anchors don't get underlined */
+.link-content {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
 .links a, .links a:link, .links a:visited, .links a:hover, .links a:active, .links a:focus {
   text-decoration: none !important;
   outline: none;
@@ -125,10 +148,10 @@ h1 {
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(255, 255, 255, 0.05),
+    rgba(255, 255, 255, 0.08),
     transparent
   );
-  transition: 0.5s;
+  transition: left 0.6s ease;
 }
 
 .link-btn:hover::before {
@@ -137,27 +160,39 @@ h1 {
 
 .link-btn:hover {
   background: rgba(255, 255, 255, 0.08);
-  transform: translateY(-3px) scale(1.02);
-  border-color: var(--accent);
-  box-shadow: 0 10px 20px -5px rgba(99, 102, 241, 0.3);
+  transform: translateY(-4px) scale(1.01);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.5), 0 0 15px -5px rgba(129, 140, 248, 0.2);
 }
 
-/* ICONS (if any) */
-.link-btn i {
+/* ICONS */
+.link-content i {
   font-size: 20px;
-  color: var(--accent);
-  transition: transform 0.3s ease;
+  color: var(--text-main);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.3s ease;
 }
 
-.link-btn:hover i {
-  transform: scale(1.2);
+.chevron {
+  font-size: 14px;
+  color: var(--text-muted);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
+}
+
+.link-btn:hover .link-content i {
+  transform: scale(1.15) rotate(-5deg);
+  color: var(--accent);
+}
+
+.link-btn:hover .chevron {
+  transform: translateX(4px);
+  color: var(--text-main);
 }
 
 /* ANIMATIONS */
 @keyframes slideIn {
   from {
     opacity: 0;
-    transform: translateY(40px) scale(0.95);
+    transform: translateY(40px) scale(0.96);
   }
   to {
     opacity: 1;
@@ -165,123 +200,98 @@ h1 {
   }
 }
 
-.link-btn {
-  animation: fadeIn 0.5s ease backwards;
-}
-
-.link-btn:nth-child(1) { animation-delay: 0.2s; }
-.link-btn:nth-child(2) { animation-delay: 0.3s; }
-.link-btn:nth-child(3) { animation-delay: 0.4s; }
-.link-btn:nth-child(4) { animation-delay: 0.5s; }
-
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
+  from { opacity: 0; transform: translateY(15px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+/* STAGGERED LINKS */
+.link-btn:nth-child(1) { animation-delay: 0.1s; }
+.link-btn:nth-child(2) { animation-delay: 0.2s; }
+.link-btn:nth-child(3) { animation-delay: 0.3s; }
+.link-btn:nth-child(4) { animation-delay: 0.4s; }
+.link-btn:nth-child(5) { animation-delay: 0.5s; }
+.link-btn:nth-child(6) { animation-delay: 0.6s; }
+.link-btn:nth-child(7) { animation-delay: 0.7s; }
+
+/* CURSOR GLOW */
 .link-btn {
   --x: 50%;
   --y: 50%;
 }
 
-/* CURSOR GLOW */
 .link-btn::after {
   content: '';
   position: absolute;
   inset: 0;
   background: radial-gradient(
-    120px circle at var(--x) var(--y),
-    rgba(129, 140, 248, 0.35),
-    transparent 60%
+    140px circle at var(--x) var(--y),
+    rgba(255, 255, 255, 0.1),
+    transparent 50%
   );
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.4s ease;
   pointer-events: none;
+  border-radius: inherit;
 }
 
 .link-btn:hover::after {
   opacity: 1;
 }
 
-.link-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
-}
-/* ... [KEEP ALL YOUR EXISTING STYLES ABOVE] ... */
-
-/* RESPONSIVE ADDITIONS */
-
-/* 1. Ensure the wrapper container handles padding well on mobile */
-.container {
-  width: 100%;
-  padding: 16px; /* Reduced padding for more space on small screens */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* 2. Adjust the card for different screen sizes */
-.card {
-  width: 100%; /* Take full width of parent up to max-width */
-  max-width: 400px;
-  /* Use clamp for responsive padding: min 20px, preferred 5%, max 30px */
-  padding: clamp(30px, 8vw, 40px) clamp(20px, 5vw, 30px);
-  margin: 0 auto;
-}
-
-/* 3. Responsive Typography using clamp() */
-h1 {
-  /* min 22px, preferred scale, max 28px */
-  font-size: clamp(22px, 6vw, 28px);
-}
-
-.bio {
-  font-size: clamp(13px, 4vw, 14px);
-  line-height: 1.5;
-}
-
-/* 4. MEDIA QUERIES for fine-tuning */
-
-/* For Small Mobile Devices (e.g., iPhone SE) */
-@media (max-width: 360px) {
+/* MEDIA QUERIES */
+@media (max-width: 380px) {
   .card {
-    padding: 24px 16px;
-    border-radius: 24px; /* Slightly smaller radius for small screens */
+    border-radius: 28px;
+    padding: 24px 20px;
+  }
+  .avatar {
+    width: 100px;
+    height: 100px;
+  }
+  .link-btn {
+    padding: 16px;
+    border-radius: 16px;
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 768px) {
+  .card {
+    max-width: 850px;
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 56px;
+    align-items: center;
+    text-align: left;
+    padding: 64px;
+  }
+  
+  .profile {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .avatar {
-    width: 90px;
-    height: 90px;
+    margin: 0 0 24px 0;
+    width: 150px;
+    height: 150px;
   }
 
-  .link-btn {
-    padding: 12px;
-    font-size: 14px;
-    gap: 8px;
+  h1 {
+    font-size: clamp(32px, 4vw, 42px);
+  }
+
+  .bio {
+    margin-bottom: 0;
+    font-size: 16px;
   }
 }
 
-/* For Tablets and Larger */
-@media (min-width: 768px) {
-  .card {
-    /* Subtle hover effect for the whole card on desktop */
-    transition: transform 0.4s ease;
-  }
-  
-  .card:hover {
-    transform: translateY(-5px);
-  }
-}
-
-/* 5. Accessibility & Performance */
 @media (prefers-reduced-motion: reduce) {
   * {
     animation: none !important;
     transition: none !important;
-  }
-}
-
-/* Ensure backdrop-filter works or falls back gracefully */
-@supports not (backdrop-filter: blur(24px)) {
-  .card {
-    background: rgba(15, 23, 42, 0.95); /* Solid fallback */
   }
 }

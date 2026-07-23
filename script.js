@@ -1,5 +1,5 @@
 document.querySelectorAll(".link-btn").forEach(link => {
-
+  // Add active state scaling
   link.addEventListener("mousedown", () => {
     link.style.transform = "scale(0.97)";
   });
@@ -12,10 +12,14 @@ document.querySelectorAll(".link-btn").forEach(link => {
     link.style.transform = "";
   });
 
+  // Track mouse position for the dynamic glow effect
   link.addEventListener("mousemove", event => {
     const rect = link.getBoundingClientRect();
-    link.style.setProperty("x", `${event.clientX - rect.left}px`);
-    link.style.setProperty("y", `${event.clientY - rect.top}px`);
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+    
+    // Update CSS custom properties
+    link.style.setProperty("--x", `${x}px`);
+    link.style.setProperty("--y", `${y}px`);
   });
-
 });
